@@ -15,17 +15,17 @@ type ITcpServer interface{
 type TcpServer struct{
 	addr *net.TCPAddr
 	listener *net.TCPListener
-	conn_list *list.List	
+	conn_list *list.List
 }
 
 
 func NewTcpServer(ip string, port uint16) *TcpServer{
-	
+
 	tcp_server := new(TcpServer)
 	tcp_server.conn_list = list.New()
 
 	tcp_server.Start(ip, port)
-		
+
 	return tcp_server
 }
 
@@ -37,7 +37,7 @@ func (this *TcpServer) Start(ip string, port uint16) bool{
 	}
 
 	addr, err := net.ResolveTCPAddr( "tcp4", fmt.Sprintf( "%s:%d", ip, port ) )
-	
+
     if err != nil {
         fmt.Println( "ResolveTCPAddr failed. ", err.Error() );
         return false
@@ -57,7 +57,7 @@ func (this *TcpServer) Start(ip string, port uint16) bool{
 	defer listener.Close()
 
 	for{
-		
+
 		conn, err := this.listener.Accept();
 
 		if err != nil{
