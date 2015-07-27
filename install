@@ -9,6 +9,29 @@ OLDGOPATH="$GOPATH"
 export GOPATH="$CURDIR"
 
 echo "GOPATH: $GOPATH"
+
+if [ ! -d src/code.google.com ]; then
+    echo "downloading goprotobuf ..."
+    go get code.google.com/p/goprotobuf/{proto,protoc-gen-go}
+fi
+
+if [ ! -f bin/protoc-gen-go ]; then
+    echo "compiling [protoc-gen-go] plugin..."
+    go install code.google.com/p/goprotobuf/protoc-gen-go
+fi
+
+if [ ! -d src/pb ]; then
+    mkdir src/pb
+fi
+
+# compile proto files.
+for file in `ls ./src/pb/`
+do
+    if [ "${file##*.}" = "proto" ]; then
+        echo "protoc: compiling proto file [$file] ..."
+        protoc --plugin=protoc-gen-go=./bin/protoc-gen-go --go_out=./src/pb --proto_path=./src/pb ./src/pb/$file
+    fi  
+done
  
 go build server
 #go install server
