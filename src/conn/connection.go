@@ -5,7 +5,6 @@ import(
 	"fmt"
 	"bytes"
 	"encoding/binary"
-
 	"handler"
 )
 
@@ -97,13 +96,13 @@ func (this *Connection) onRecv(){
 
 			pbData := data[OP_CODE_LEN:]
 
-            //fmt.Println("opcode:", opCode)
-			//fmt.Println("pb:", pbData)
-
             contentLen = 0
 
-			handler.ParsePbMsg(opCode, pbData)
+			//解包
+			decodeMsg, _ := handler.DecodePbMsg(opCode, pbData)
 
+			fmt.Println(decodeMsg)
+			//this.recv <- decodeMsg
 		}
 	}
 }

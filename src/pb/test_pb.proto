@@ -1,0 +1,7 @@
+message reqLogin{
+	optional uint32 user_id = 1;
+}
+
+message respLogin{
+	optional uint32 result = 1;
+}
