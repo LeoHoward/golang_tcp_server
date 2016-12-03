@@ -20,6 +20,12 @@ if [ ! -f bin/protoc-gen-go ]; then
     go install code.google.com/p/goprotobuf/protoc-gen-go
 fi
 
+if
+	[ ! -d src/github.com/go-sql-driver ]; then
+	echo "downloading go-sql-driver ..."
+	go get github.com/go-sql-driver/mysql
+fi
+
 if [ ! -d src/pb ]; then
     mkdir src/pb
 fi
@@ -33,8 +39,8 @@ do
     fi  
 done
  
-go build server
-#go install server
+#go build server
+go install server
 
 #go clean
 
