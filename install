@@ -20,8 +20,7 @@ if [ ! -f bin/protoc-gen-go ]; then
     go install code.google.com/p/goprotobuf/protoc-gen-go
 fi
 
-if
-	[ ! -d src/github.com/go-sql-driver ]; then
+if [ ! -d src/github.com/go-sql-driver ]; then
 	echo "downloading go-sql-driver ..."
 	go get github.com/go-sql-driver/mysql
 fi
